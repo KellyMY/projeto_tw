@@ -1,0 +1,1 @@
+from postagem_serializer import PostagemSerializer
