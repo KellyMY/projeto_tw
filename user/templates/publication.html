@@ -1,0 +1,295 @@
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #e0e0e0;
+        font-family: system-ui;
+    }
+
+    .position_absolute {
+        position: absolute;
+    }
+
+    .position_relative {
+        position: relative;
+    }
+
+    .side_by_side {
+        margin: 5px;
+        padding: 15px 10px;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .profile {
+        width: 20%;
+        text-align: center;
+        margin-top: 20px;
+        background: #FFFFFF;
+        border-radius: 0px;
+        background: #e0e0e0;
+        box-shadow: 5px 5px 10px #bebebe,
+            -5px -5px 10px #ffffff;
+    }
+
+
+    .profile div {
+        margin-bottom: 8px;
+    }
+
+    .button_orange {
+        color: #FFF;
+        padding: 5px 20px;
+        background: #FC6A03;
+        border: none;
+        border: 1px solid #EC9706;
+        border-radius: 20px;
+        /* font-size: 15px; */
+        font-weight: bold;
+    }
+
+    .button_orange:hover {
+        color: #FFF;
+        cursor: pointer;
+        background: #EC9706;
+        /* border: none;
+        border: 1px solid #82560D */
+    }
+
+    .button_blue {
+        padding: 5px 20px;
+        color: #FFF;
+        background: #128FC8;
+        border: none;
+        border: 1px solid #1E80C1;
+        border-radius: 20px;
+        /* font-size: 15px; */
+        font-weight: bold;
+    }
+
+    .button_blue:hover {
+        color: #FFF;
+        cursor: pointer;
+        background: #2ECBE9;
+        /* border: none;
+        border: 1px solid #82560D */
+    }
+
+    .button_grey {
+        padding: 5px 20px;
+        color: #FFF;
+        background: #4d4e4f;
+        border: none;
+        border: 1px solid #0b0b0b;
+        border-radius: 20px;
+        /* font-size: 15px; */
+        font-weight: bold;
+    }
+
+    .button_grey:hover {
+        color: #FFF;
+        cursor: pointer;
+        background: #8d9192;
+        /* border: none;
+        border: 1px solid #82560D */
+    }
+
+    .card {
+        padding: 5px 5px;
+        width: 100%;
+        border-radius: 0px;
+        background: #e0e0e0;
+        box-shadow: 5px 5px 10px #bebebe,
+            -5px -5px 10px #ffffff;
+    }
+
+    /* .profile:hover{
+        -webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+    } */
+
+    .circulo_perfil {
+        /* top: -15px; */
+        right: -85px;
+        height: 100px;
+        width: 100px;
+        border-radius: 50px;
+        background: black;
+        position: relative;
+    }
+
+    .circulo_perfil:hover {
+        cursor: pointer;
+    }
+
+    .circulo {
+        top: -15px;
+        left: 25px;
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        background: black;
+        position: relative;
+    }
+
+    .circulo:hover {
+        cursor: pointer;
+    }
+
+    .title_card {
+        font-weight: bold;
+        font-size: 20px;
+        left: 80px;
+        top: -30px;
+        position: relative;
+    }
+
+    .title_card:hover {
+        cursor: pointer;
+    }
+
+    .datetime_card {
+        left: 80px;
+        color: #5e5e5e;
+        font-size: 12px;
+        font-weight: bold;
+        position: relative;
+    }
+
+    .datetime_post {
+        color: #5e5e5e;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .text_post {
+        margin-top: 50px;
+    }
+
+    .image {
+        height: 150px;
+        width: 100%;
+        background: #9c9c9c;
+    }
+
+    .cursor_pointer:hover {
+        cursor: pointer;
+    }
+
+    a {
+        color: #000000;
+        text-decoration: none;
+    }
+
+    .success {
+        color: #00c04b;
+        font-weight: bold;
+    }
+
+    .error {
+        color: #ff0000;
+        font-weight: bold;
+    }
+    @media screen and (max-width: 1089px) {
+        .side_by_side{
+            width: 100%;
+        }
+    }
+</style>
+
+<div style="width: 100%" class="">
+    <div class="side_by_side profile">
+        <!-- {{post.0.user_name.username}} -->
+        {% if post %}
+        {% for pst in post %}
+        <!-- Do usuário logado -->
+        <!-- {{pst}} -->
+        <div>
+            <!-- <a href="">Icone</a> -->
+            <div class="circulo_perfil" title="nome">
+                <img href="" />
+            </div>
+        </div>
+        <div><strong>{{pst.username}}</strong></div>
+        <div>
+            <!-- active, email, follower_user, following_user, id, password, username, usernames -->
+            <div><strong>{{follower}} Seguidores</strong></div>
+            <div><strong>{{following}} Seguindo</strong></div>
+            {% if is_user == False %}
+            {% if follow %}
+            <form action="{% url 'unfollow' %}" method="POST">{% csrf_token %}
+                <input type="text" hidden name="profile_id_un" value="{{pst.user_name_id}}">
+                <button class="button_grey">Unfollow</button>
+            </form>
+            {% else %}
+            <form action="{% url 'follow' %}" method="POST">{% csrf_token %}
+                <input type="text" hidden name="profile_id" value="{{pst.user_name_id}}">
+                <button class="button_blue">Follow</button>
+            </form>
+            {% endif %}
+
+            {% endif %}
+
+            <div>
+                {% if messages %}
+                {% for message in messages %}
+                <span class="{{message.tags}}">{{message}}
+                    {% endfor %}
+                    {% endif %}
+            </div>
+
+            <!-- <div><button class="button_blue">Seguir</button></div> -->
+            <!-- <form action="{% url 'posts' %}" method="GET">{% csrf_token %}
+                <button class="button_blue">Postar</button>
+            </form> -->
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <!-- Visualização de outros usuários -->
+        <!-- <div><a href="">Icone</a></div>
+        <div class="cursor_pointer"><strong>NOME TAL</strong></div>
+        <div><strong>0 Seguidores</strong></div>
+        <div><strong>0 Seguindo</strong></div>
+        <div><button class="button_blue">Seguir</button></div> -->
+
+
+    </div>
+    <div class="side_by_side" style="width: 74%;height: 500px;">
+       
+        <!-- Listagem das postagens -->
+        {% if post %}
+        {% for p in post %}
+        <!-- {{p.user_name.username}} -->
+        <div style="padding: 15px 15px;
+            margin-bottom: 30px;
+            width: 100%;
+            border-radius: 0px;
+            background: #e0e0e0;
+            box-shadow: 5px 5px 10px #bebebe,
+                -5px -5px 10px #ffffff;min-height: 100%;">
+                <div style="font-size: 20px;"><strong>{{p.title}}</strong></div>
+                <div class="datetime_post">{{p.created_at}}</div>
+                <div class="text_post">
+                    {{p.description}}
+                </div>
+            </div>
+
+        {% endfor %}
+        {% else %}
+        <div class="card" style="padding: 15px 15px;
+        margin-bottom: 30px;
+        width: 100%;
+        border-radius: 0px;
+        background: #e0e0e0;
+        box-shadow: 5px 5px 10px #bebebe,
+            -5px -5px 10px #ffffff;min-height: 100%;">
+            <div><strong>Nenhuma postagem encontrada.</strong></div>
+        </div>
+        {% endif %}
+
+
+
+    </div>
+</div>

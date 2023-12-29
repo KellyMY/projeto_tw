@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #e0e0e0;
+            font-family: system-ui;
+        }
+
+        .position_absolute {
+            position: absolute;
+        }
+
+        .position_relative {
+            position: relative;
+        }
+
+        .side_by_side {
+            padding: 15px 10px;
+            vertical-align: top;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile {
+            width: 20%;
+            text-align: center;
+            margin-top: 20px;
+            background: #FFFFFF;
+            border-radius: 0px;
+            background: #e0e0e0;
+            box-shadow: 5px 5px 10px #bebebe,
+                -5px -5px 10px #ffffff;
+        }
+
+        .profile div {
+            margin-bottom: 8px;
+        }
+
+        .button_orange {
+            color: #FFF;
+            padding: 5px 20px;
+            background: #FC6A03;
+            border: none;
+            border: 1px solid #EC9706;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .button_orange:hover {
+            color: #FFF;
+            cursor: pointer;
+            background: #EC9706;
+        }
+
+        .button_green {
+            padding: 5px 20px;
+            background: #3CB043;
+            border: none;
+            border: 1px solid #03AC13;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .button_green:hover {
+            color: #FFF;
+            cursor: pointer;
+            background: #5DBB63;
+        }
+
+        .button_blue {
+            color: #FFF;
+            padding: 5px 20px;
+            background: #128FC8;
+            border: none;
+            border: 1px solid #1E80C1;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .button_blue:hover {
+            color: #FFF;
+            cursor: pointer;
+            background: #2ECBE9;
+        }
+
+        .centralizado {
+            text-align: center;
+            padding: 15px 45px;
+            border-radius: 0px;
+            background: #e0e0e0;
+            box-shadow: 5px 5px 10px #bebebe,
+                -5px -5px 10px #ffffff;
+        }
+
+        .centralizado div {
+            margin-bottom: 10px;
+        }
+
+        input {
+            border-radius: 15px;
+            text-decoration: none;
+            padding: 10px;
+            font-size: 15px;
+            width: 80vh;
+        }
+
+        .row {
+            text-align: left;
+        }
+    </style>
+
+    <div style="width: 100%; height: 100vh;">
+        <!-- Login de usuário -->
+        <div class="side_by_side">
+
+            <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+                <div class="centralizado">
+                    <div>
+                        <h1><strong>LOGIN</strong></h1>
+                    </div>
+                    <div class="row">
+                        <label for="username">Username</label><br>
+                        <input type="text" name="username">
+                    </div>
+                    <div class="row">
+                        <label for="password">Password</label><br>
+                        <input type="password" name="password">
+                    </div>
+                    <div>
+                        <form action="{% url 'button_sign_up' %}" method="POST"> {% csrf_token %}
+                            <a type="submit" href="{% url 'button_sign_up' %}" style="text-decoration: none;">Criar
+                                cadastro</a>
+                        </form>
+                    </div>
+
+                    <div>
+
+                        <button type="submit" class="button_blue">Sign in</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- <h1>Login</h1>
+    <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+        <div>
+            <label for="username">Nome de Usuário</label>
+            <input type="text" name="username">
+        </div>
+        <div>
+            <label for="password">Senha</label>
+            <input type="password" name="password">
+        </div>
+        <div>
+            <input type="submit" value="Login">
+        </div>
+    </form>
+    <form action="{% url 'button_sign_up' %}" method="POST"> {% csrf_token %}
+        <button type="submit">Sign UP</button>    
+    </form> -->
+</body>
+
+</html>

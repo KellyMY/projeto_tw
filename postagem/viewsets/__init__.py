@@ -1,1 +1,0 @@
-from .postagem_viewset import PostagemViewSet

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-t7l45ns7hx6+1s)&iypeb%*2fs(7tnlllks4jziy-+*t_@dv5k"
+SECRET_KEY = "django-insecure-z)d#3r(k76z-56rj+ex&m=97#^)0h=&5!_=172ps!il+-3v&)3"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kely.pythonanywhere.com']
 
 
 # Application definition
@@ -37,9 +39,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "login",
-    "postagem",
-    "usuario",
+    "follower",
+    "posts",
+    "user"
 ]
 
 MIDDLEWARE = [
@@ -57,7 +59,7 @@ ROOT_URLCONF = "twitter.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'twitter', 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -73,13 +75,33 @@ TEMPLATES = [
 WSGI_APPLICATION = "twitter.wsgi.application"
 
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATICFILES_DIRS = (
+#    os.path.join(BASE_DIR, "user/css/index.css"),
+# )
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        "USER": "user",
+        "PASSWORD": "password",
+        "HOST": "localhost",
+        "PORT": 5232,
+
+        # "ENGINE": 'django.db.backends.postgresql',
+        # "HOST": 'localhost',
+        # 'NAME': 'twitter',
+        # 'PORT': 5432,
+        # 'USER': 'postgres',
+        # 'PASSWORD': 12345
+        # "ENGINE": "django.db.backends.sqlite3",
+        # "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 

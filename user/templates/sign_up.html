@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+
+<body>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #e0e0e0;
+            font-family: system-ui;
+        }
+
+        .position_absolute {
+            position: absolute;
+        }
+
+        .position_relative {
+            position: relative;
+        }
+
+        .side_by_side {
+            padding: 15px 10px;
+            vertical-align: top;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile {
+            width: 20%;
+            text-align: center;
+            margin-top: 20px;
+            background: #FFFFFF;
+            border-radius: 0px;
+            background: #e0e0e0;
+            box-shadow: 5px 5px 10px #bebebe,
+                -5px -5px 10px #ffffff;
+        }
+
+        .profile div {
+            margin-bottom: 8px;
+        }
+
+        .button_orange {
+            color: #FFF;
+            padding: 5px 20px;
+            background: #FC6A03;
+            border: none;
+            border: 1px solid #EC9706;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .button_orange:hover {
+            color: #FFF;
+            cursor: pointer;
+            background: #EC9706;
+        }
+
+        .button_green {
+            padding: 5px 20px;
+            background: #3CB043;
+            border: none;
+            border: 1px solid #03AC13;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .button_green:hover {
+            color: #FFF;
+            cursor: pointer;
+            background: #5DBB63;
+        }
+
+        .button_blue {
+            color: #FFF;
+            padding: 5px 20px;
+            background: #128FC8;
+            border: none;
+            border: 1px solid #1E80C1;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .button_blue:hover {
+            color: #FFF;
+            cursor: pointer;
+            background: #2ECBE9;
+        }
+
+        .centralizado {
+            text-align: center;
+            padding: 15px 45px;
+            border-radius: 0px;
+            background: #e0e0e0;
+            box-shadow: 5px 5px 10px #bebebe,
+                -5px -5px 10px #ffffff;
+        }
+
+        .centralizado div {
+            margin-bottom: 10px;
+        }
+
+        input {
+            border-radius: 15px;
+            text-decoration: none;
+            padding: 10px;
+            font-size: 15px;
+            width: 80vh;
+        }
+
+        .row {
+            text-align: left;
+        }
+
+        .success {
+            color: #00c04b;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #ff0000;
+            font-weight: bold;
+        }
+    </style>
+
+    <div style="width: 100%; height: 100vh;">
+
+        <!-- Cadastro de usuário -->
+        <form action="{% url 'sign_up' %}" method="POST"> {% csrf_token %}
+            <div class="side_by_side">
+                <div class="centralizado">
+                    <div>
+                        <h1><strong>SIGN UP</strong></h1>
+                    </div>
+                    <div class="row">
+                        <label for="username">Username</label><br>
+                        <input type="text" name="username">
+                    </div>
+                    <div class="row">
+                        <label for="email">E-mail</label><br>
+                        <input type="text" name="email">
+                    </div>
+                    <div class="row">
+                        <label for="password">Password</label><br>
+                        <input type="password" name="password">
+                    </div>
+                    <div class="row">
+                        <label for="password_repeat">Password confirmation</label><br>
+                        <input type="password" name="password_repeat">
+                    </div>
+                    <div>
+                        <button class="button_blue">Register</button>
+                    </div>
+
+                    <div>
+                        {% if messages %}
+                        {% for message in messages %}
+                        <span class="{{message.tags}}">{{message}}
+                            {% endfor %}
+                            {% endif %}
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+
+    <!-- <h1>Sign Up</h1>
+    <form action="{% url 'sign_up' %}" method="POST"> {% csrf_token %}
+        <div>
+            <label for="username">Nome de Usuário</label>
+            <input type="text" name="username">
+        </div>
+        <div>
+            <label for="email">E-mail</label>
+            <input type="text" name="email">
+        </div>
+        <div>
+            <label for="password">Senha</label>
+            <input type="password" name="password">
+        </div>
+        <div>
+            <label for="password_repeat">Confirmação de Senha</label>
+            <input type="password" name="password_repeat">
+        </div>
+        <div>
+            <input type="submit" value="Cadastrar">
+        </div>
+    </form>
+    {% if messages %}
+    {% for message in messages %}
+    <span class="{{message.tags}}">{{message}}
+        {% endfor %}
+        {% endif %} -->
+</body>
+
+</html>
