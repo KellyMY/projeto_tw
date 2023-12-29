@@ -94,7 +94,10 @@ class UserViewSet(ModelViewSet):
                 return redirect("/twitter/plataform/")
                 # return HttpResponse("autenticado")
             else:
-                return HttpResponse("Inválido")
+                messages.error(request, 'Usuário e/ou senha inválido(s)!')
+               
+                return redirect("/twitter")
+                # return HttpResponse("Inválido")
 
     def logout(request):
         logout_django(request)
