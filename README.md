@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 # projeto_tw
 
 projeto_tw APP from Backend Python course from EBAC
+=======
+# Projeto_tw
+
+Projeto_tw APP from Backend Python course from EBAC
+>>>>>>> 03473aa0deed7daa6853c4de53ca22bd8bfca512
 
 ## Prerequisites
 
@@ -22,7 +28,11 @@ Docker && docker-compose
 2. Install dependencies:
 
    ```shell
+<<<<<<< HEAD
    cd projeto_tw
+=======
+   cd bookstore
+>>>>>>> 03473aa0deed7daa6853c4de53ca22bd8bfca512
    poetry install
    ```
 
