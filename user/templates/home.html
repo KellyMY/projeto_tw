@@ -1,3 +1,7 @@
+{% load static %}
+<head>
+    <title>Home</title>
+</head>
 <style>
     body {
         margin: 0;
@@ -31,7 +35,6 @@
         box-shadow: 5px 5px 10px #bebebe,
             -5px -5px 10px #ffffff;
     }
-
 
     .profile div {
         margin-bottom: 8px;
@@ -75,6 +78,25 @@
         border: 1px solid #82560D */
     }
 
+    .button_grey {
+        color: #FFF;
+        padding: 5px 20px;
+        background: #616161;
+        border: none;
+        border: 1px solid #9c9c9c;
+        border-radius: 20px;
+        /* font-size: 15px; */
+        font-weight: bold;
+    }
+
+    .button_grey:hover {
+        color: #FFF;
+        cursor: pointer;
+        background: #b0b0b0;
+        /* border: none;
+        border: 1px solid #82560D */
+    }
+
     .card {
         padding: 5px 5px;
         width: 100%;
@@ -89,7 +111,21 @@
 -moz-box-shadow: none;
 box-shadow: none;
     } */
+    .imagem_banner{
+        height: 100%;
+        width: 100%;
+        object-fit:cover;
+    }
 
+    .imagem{
+        max-height: 100%;
+        max-width: 100%;
+        height: 100%;
+        width: auto;
+        border-radius: 50px;
+        background-size: cover;
+        object-fit: cover;
+    }
     .circulo_perfil {
         /* top: -15px; */
         right: -85px;
@@ -162,6 +198,32 @@ box-shadow: none;
         color: #000000;
         text-decoration: none;
     }
+
+    .button_type {
+        width: 100%;
+        border: none;
+        border-bottom: 5px solid #000000;
+        padding: 10px 0px;
+        background: transparent;
+        font-weight: bold;
+        -webkit-border-top-left-radius: 15px;
+        -webkit-border-top-right-radius: 15px;
+        -moz-border-radius-topleft: 15px;
+        -moz-border-radius-topright: 15px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .button_type:hover {
+        background: #c5caca;
+        cursor: pointer;
+        border-color: #2ECBE9;
+        color: #128FC8;
+    }
+
+    .selected_buttom {
+        background: #babbbc;
+    }
 </style>
 
 <div style="width: 100%" class="">
@@ -170,10 +232,13 @@ box-shadow: none;
         <div>
             <!-- <a href="">Icone</a> -->
             <div class="circulo_perfil" title="nome">
-                <img href="" />
+                <img src="{{user_image}}" class="imagem"/>
             </div>
         </div>
         <div><a href="{% url 'profile' user_id %}"><strong>{{user}}</strong></a></div>
+        <div><strong>{{follower}} Seguidores</strong></div>
+        <div><strong>{{following}} Seguindo</strong></div>
+
         <div>
             <form action="{% url 'logout' %}" method="POST"> {% csrf_token %}
                 <button class="button_orange">Logout</button>
@@ -181,6 +246,10 @@ box-shadow: none;
 
             <form action="{% url 'posts' %}" method="GET">{% csrf_token %}
                 <button class="button_blue">Publish</button>
+            </form>
+
+            <form action="{% url 'redirect_to_edit_profile' %}" method="POST"> {% csrf_token %}
+                <button class="button_grey">Edit profile</button>
             </form>
         </div>
 
@@ -194,33 +263,66 @@ box-shadow: none;
 
     </div>
     <div class="side_by_side" style="width: 74%;height: 500px;">
-       
+        <div style="display: inline-block; width:49%;">
+            <form action="{% url 'back_home' %}" method="POST">{% csrf_token %}
+                {% if selected_name == 'all' %}
+                <button class="button_type selected_buttom">All</button>
+                {% else %}
+                <button class="button_type">All</button>
+                {% endif %}
+            </form>
+        </div>
+
+        <div style="display: inline-block; width:49%;">
+            <form action="{% url 'following_posts' %}" method="POST"> {% csrf_token %}
+                {% if selected_name == 'following' %}
+                <button class="button_type selected_buttom">Following</button>
+                {% else %}
+                <button class="button_type">Following</button>
+                {% endif %}
+            </form>
+        </div>
 
         <!-- Listagem das postagens -->
         {% if posts %}
         {% for p in posts %}
         <!-- {{p}} -->
         <div class="card">
-            <div class="image"><img src="" alt=""></div>
-            <div class="position_absolute">
-                    <div class="title_card">
-                        <!-- <input type="text" value="{{p.username}}"> -->
-                        <a type="submit" href="{% url 'publication' p.posts_id %}">{{p.title| slice:"0:50"}}</a>
-                    <!-- </form> -->
-                    </div>
+            <div class="image">
+                {% if p.post_image != "0" %}
+                <img src="../media/post/{{p.post_image}}" alt="Capa da postagem" class="imagem_banner">
+            {% else %}
+            <img  alt="" class="imagem_banner">
+            {% endif %}
             </div>
             <div class="position_absolute">
-                <div class="circulo" title="nome">{{p.username}}
-                    <img href="" title="{{p.username}}" />
+                <div class="title_card">
+                    <!-- <input type="text" value="{{p.username}}"> -->
+                    <a type="submit" href="{% url 'publication' p.id %}">{{p.title| slice:"0:50"}}</a>
+                    <!-- </form> -->
+                </div>
+            </div>
+            <div class="position_absolute">
+                <div class="circulo" title="nome">
+                    {% if p.image != "1" %}
+                    <img src="../media/profile/{{p.image}}" class="imagem" />
+                    {% else %}
+                    <img src="" class="imagem" />
+                    {% endif%}
                 </div>
             </div>
             <div>
                 <hr style="border-top: 1px solid #000000;">
             </div>
             <div class="position_absolute">
-                <div class="datetime_card">Criado em {{p.created_at}}
-                    <!-- - Atualizado em {{p.updated_at}} -->
+                {% if user_id == p.user_name_id %}
+                <div class="datetime_card">{{p.username}} • Criado em {{p.created_at}}
                 </div>
+                {% else %}
+                <div class="datetime_card"><a href="{% url 'profile' p.user_name_id %}">{{p.username}}</a> • Criado em
+                    {{p.created_at}}
+                </div>
+                {% endif %}
             </div>
             <div style="padding: 17px 15px;">
                 <!-- description_maior = ''
@@ -235,12 +337,12 @@ box-shadow: none;
         {% endfor %}
         {% else %}
         <div class="card" style="padding: 15px 15px;
-        margin-bottom: 30px;
-        width: 100%;
-        border-radius: 0px;
-        background: #e0e0e0;
-        box-shadow: 5px 5px 10px #bebebe,
-            -5px -5px 10px #ffffff;min-height: 100%;">
+            margin-bottom: 30px;
+            width: 100%;
+            border-radius: 0px;
+            background: #e0e0e0;
+            box-shadow: 5px 5px 10px #bebebe,
+                -5px -5px 10px #ffffff;min-height: 100%;">
             <div><strong>Nenhuma postagem encontrada.</strong></div>
         </div>
         {% endif %}

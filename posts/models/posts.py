@@ -13,5 +13,6 @@ class Posts(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # email = models.CharField(max_length=200)
+    post_image = models.CharField(max_length=200)
     active = models.BooleanField(default=True)
 

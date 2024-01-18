@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "follower",
     "posts",
-    "user"
+    "user",
+    "commentary",
 ]
 
 MIDDLEWARE = [
@@ -87,19 +88,23 @@ INTERNAL_IPS = [
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        "USER": "user",
-        "PASSWORD": "password",
-        "HOST": "localhost",
-        "PORT": 5232,
-
-        # "ENGINE": 'django.db.backends.postgresql',
-        # "HOST": 'localhost',
-        # 'NAME': 'twitter',
-        # 'PORT': 5432,
-        # 'USER': 'postgres',
-        # 'PASSWORD': 12345
+        # "ENGINE": "django.db.backends.sqlite3",
+        # "NAME": BASE_DIR / "db.sqlite3",
+        # "USER": "user",
+        # "PASSWORD": "password",
+        # "HOST": "localhost",
+        # "PORT": 5232,
+        # 'OPTIONS': {
+        #     'timeout': 30,  # in seconds
+        #     # see also
+        #     # https://docs.python.org/3.7/library/sqlite3.html#sqlite3.connect
+        # }
+        "ENGINE": 'django.db.backends.postgresql',
+        "HOST": 'localhost',
+        'NAME': 'twitter',
+        'PORT': 5432,
+        'USER': 'postgres',
+        'PASSWORD': 12345
         # "ENGINE": "django.db.backends.sqlite3",
         # "NAME": BASE_DIR / "db.sqlite3",
     }
@@ -134,13 +139,16 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL='/media/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

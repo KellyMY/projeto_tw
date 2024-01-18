@@ -17,7 +17,8 @@ Including another URLconf
 # from rest_framework import routers
 from django.contrib import admin
 from django.urls import path, include
-from posts.viewsets import PostsViewSet as views_posts
+# from posts.viewsets import PostsViewSet as views_posts
+from commentary.viewsets import CommentaryViewSet as views_commentary
 # from posts import viewsets
 
 # router = routers.SimpleRouter()
@@ -27,7 +28,7 @@ urlpatterns = [
     # path("twitter/", include("user.urls")),
     # path("", include("user.urls")),
     # path("posts/", include("posts.urls")),
-    path("posts/", views_posts.posts, name="posts"),
-    path("back_published/", views_posts.posts, name="back_published"),
+    # path("comment/", views_commentary.comment, name="comment"),
+    # path("back_published/", views_commentary.posts, name="back_published"),
 
 ]

@@ -96,6 +96,22 @@
             background: #2ECBE9;
         }
 
+        .button_red {
+            padding: 5px 20px;
+            color: #FFF;
+            background: #FF0000;
+            border: none;
+            border: 1px solid #cf3b1a;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .button_red:hover {
+            color: #FFF;
+            cursor: pointer;
+            background: #FF5733;
+        }
+
         .centralizado {
             text-align: center;
             padding: 15px 45px;
@@ -129,7 +145,7 @@
         .row {
             text-align: left;
         }
-        
+
         .success {
             color: #00c04b;
             font-weight: bold;
@@ -139,16 +155,24 @@
             color: #ff0000;
             font-weight: bold;
         }
+        
+        .image{
+            border:1px solid #000000;
+        }
+        .image:hover{
+            cursor: pointer;
+        }
     </style>
 
     <div style="width: 100%; height: 100vh;">
         <!-- Publicar -->
-        <form action="{% url 'posts' %}" method="POST"> {% csrf_token %}
-            <div class="side_by_side">
-                <div class="centralizado">
-                    <div>
-                        <h1><strong>TO POST</strong></h1>
-                    </div>
+        <div class="side_by_side">
+            <div class="centralizado">
+                <div>
+                    <h1><strong>TO POST</strong></h1>
+                </div>
+
+                <form action="{% url 'posts' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
                     <div class="row">
                         <label for="title">Title</label><br>
                         <input type="text" name="title">
@@ -157,21 +181,31 @@
                         <label for="description">Description</label><br>
                         <textarea type="text" name="description"></textarea>
                     </div>
+                    <div class="row">
+                        <label for="post_image">Imagem</label><br>
+                        <input type="file" name="post_image" class="image">
+                    </div>
                     <div>
                         <button type="submit" class="button_blue">Publish</button>
                     </div>
+                </form>
 
+                <form action="{% url 'back_published' %}" method="POST">{% csrf_token %}
                     <div>
-                        {% if messages %}
-                        {% for message in messages %}
-                        <span class="{{message.tags}}">{{message}}
-                            {% endfor %}
-                            {% endif %}
+                        <button type="submit" class="button_red">Back</button>
                     </div>
-                </div>
+                </form>
 
+                <div>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <span class="{{message.tags}}">{{message}}
+                        {% endfor %}
+                        {% endif %}
+                </div>
             </div>
-        </form>
+
+        </div>
 
 
     </div>

@@ -6,6 +6,7 @@ class User(models.Model):
     username = models.CharField(max_length=150)
     password = models.CharField(max_length=150)
     email = models.CharField(max_length=200)
+    image = models.CharField(max_length=200)
     active = models.BooleanField(default=True)
 
 class UserRegister(forms.ModelForm):
@@ -14,7 +15,7 @@ class UserRegister(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("username", "password", "email"
+        fields = ("username", "password", "email", "image"
                   )
         
     # def samePassword(self):

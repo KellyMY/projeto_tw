@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Edit Profile</title>
 </head>
 
 <body>
@@ -147,7 +147,7 @@
             color: #ff0000;
             font-weight: bold;
         }
-        
+
         .image{
             border:1px solid #000000;
         }
@@ -163,39 +163,43 @@
         <div class="side_by_side">
             <div class="centralizado">
                 <div>
-                    <h1><strong>SIGN UP</strong></h1>
+                    <h1><strong>EDIT PROFILE</strong></h1>
                 </div>
-                <form action="{% url 'sign_up' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                {% if user %}
+                {% for u in user %}
+                <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                    <input type="text" name="user_id" value="{{u.id}}" hidden>
                     <div class="row">
                         <label for="username">Username</label><br>
-                        <input type="text" name="username">
+                        <input type="text" name="username" value="{{u.username}}">
                     </div>
                     <div class="row">
                         <label for="email">E-mail</label><br>
-                        <input type="text" name="email">
+                        <input type="text" name="email" value="{{u.email}}">
                     </div>
                     <div class="row">
                         <label for="password">Password</label><br>
-                        <input type="password" name="password">
+                        <input type="password" name="password" value="{{u.password}}">
                     </div>
                     <div class="row">
                         <label for="password_repeat">Password confirmation</label><br>
-                        <input type="password" name="password_repeat">
+                        <input type="password" name="password_repeat" value="{{u.password}}">
                     </div>
                     <div class="row">
                         <label for="image">Imagem</label><br>
                         <input type="file" name="image" class="image">
                     </div>
                     <div>
-                        <button class="button_blue">Register</button>
+                        <button class="button_blue">Save</button>
                     </div>
 
 
                 </form>
-
-                <form action="{% url 'back_login' %}" method="POST">{% csrf_token %}
+                {% endfor %}
+                {% endif %}
+                <form action="{% url 'back_home' %}" method="POST">{% csrf_token %}
                     <div>
-                        <button type="submit" class="button_red">Back</button>
+                        <button type="submit" class="button_red">Back to page home</button>
                     </div>
                 </form>
                 <div>
