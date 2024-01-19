@@ -61,6 +61,7 @@ RUN pip install Django
 RUN pip install django-extensions
 RUN pip install djangorestframework
 RUN pip install django-debug-toolbar
+RUN pip install pillow
 # RUN pip install django
 # RUN poetry install --no-dev
 
